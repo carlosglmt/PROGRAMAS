@@ -1,34 +1,42 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
+
+
+bool es_numero_perfecto(int);
 
 int main(){
+    int cantidad_evaluaciones;
+    scanf("%d", &cantidad_evaluaciones);
 
-    int e;
-    scanf("%d", &e);
+    int inicio[cantidad_evaluaciones], evaluaciones[cantidad_evaluaciones];
 
-    int contador = 0;
-    int valor_inicial[e], valores_siguientes[e];
-
-    while(contador < e){
-
-        scanf("%d%d", &valor_inicial[contador], &valores_siguientes[contador]);
-        contador++;
-
-    }
-
-    for(int x = 0; x < e; x++)
-        for(int y = 0; y < valores_siguientes[x] + 1; y++){
-            int suma = 0;
-            for(int z = 1; z < valor_inicial[x] + y; z++){
-                if((valor_inicial[x] + y) % z == 0)
-                    suma += z;
-            }
-            if(suma == (valor_inicial[x] + y))
-                printf("%d es perfecto\n", valor_inicial[x] + y);
-            else
-               printf("%d no es perfecto\n", valor_inicial[x] + y);
-            
-        }
+    for(int i = 0; i < cantidad_evaluaciones; i++)
+        scanf("%d%*c%d", &inicio[i], &evaluaciones[i]);
     
+
+    puts("");
+
+    for(int i= 0; i < cantidad_evaluaciones; i++){
+        for(int j = 0; j < evaluaciones[i] + 1; j++){
+            if(es_numero_perfecto(inicio[i] + j))
+                printf("%d es perfecto\n", inicio[i]+j);
+            else
+                printf("%d no es perfecto\n", inicio[i]+j);
+        }
+    }
     return EXIT_SUCCESS;
+}
+
+bool es_numero_perfecto(int numero){
+    int suma = 0;
+    for(int i=1; i < numero; i++){
+        if(numero % i == 0)
+            suma += i;
+    }
+    if(suma == numero)
+        return true;
+    else
+        return false;  
+
 }
